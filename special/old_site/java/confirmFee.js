@@ -1,4 +1,4 @@
 function confirmFee(javaLocation)
-{//	return confirm("¡¡¡¡ºÇºÇ£¬Õ¾µã "+(javaLocation.toString()).substring(34,(javaLocation.toString()).length-17)+" ÓÐ¹úÍâÁ÷Á¿¡£Èç¹ûÄã·ÃÎÊ³ö¹úÕ¾µãÒªÊÕ·ÑµÄ»°£¬Ëü½«ºÄµôÄãµÄÒø×ÓßÏ~~~~~~~È·ÈÏÒª·ÃÎÊÂð£¿");
-	return confirm("¡¡¡¡ºÇºÇ£¬Õâ¸öÕ¾µãÓÐ¹úÍâÁ÷Á¿¡£Èç¹ûÄã·ÃÎÊ³ö¹úÕ¾µãÒªÊÕ·ÑµÄ»°£¬Ëü½«ºÄµôÄãµÄÒø×ÓßÏ~~~~~~~È·ÈÏÒª·ÃÎÊÂð£¿");
+{//	return confirm("ã€€ã€€å‘µå‘µï¼Œç«™ç‚¹ "+(javaLocation.toString()).substring(34,(javaLocation.toString()).length-17)+" æœ‰å›½å¤–æµé‡ã€‚å¦‚æžœä½ è®¿é—®å‡ºå›½ç«™ç‚¹è¦æ”¶è´¹çš„è¯ï¼Œå®ƒå°†è€—æŽ‰ä½ çš„é“¶å­å‘¦~~~~~~~ç¡®è®¤è¦è®¿é—®å—ï¼Ÿ");
+	return confirm("ã€€ã€€å‘µå‘µï¼Œè¿™ä¸ªç«™ç‚¹æœ‰å›½å¤–æµé‡ã€‚å¦‚æžœä½ è®¿é—®å‡ºå›½ç«™ç‚¹è¦æ”¶è´¹çš„è¯ï¼Œå®ƒå°†è€—æŽ‰ä½ çš„é“¶å­å‘¦~~~~~~~ç¡®è®¤è¦è®¿é—®å—ï¼Ÿ");
 }

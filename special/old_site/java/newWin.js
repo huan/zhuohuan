@@ -1,5 +1,5 @@
 function newWin(url,winName,wide)
-{	window.status="ÇëÉÒºò ... ÔØÈëÎÄµµÖĞ ... ...^_^";
+{	window.status="è¯·æ¢¢å€™ ... è½½å…¥æ–‡æ¡£ä¸­ ... ...^_^";
 	if(wide){
 		newWindow=open(url,winName,"status,resizable,toolbar"); 
 	}else{

@@ -1,5 +1,5 @@
 function checkModified()
 {	changeDate=new Date(document.lastModified);
-	document.write("±¾ÎÄµµ×îºó¸üĞÂÈÕÆÚ£º",changeDate.getYear(),"Äê",changeDate.getMonth()+1,"ÔÂ",changeDate.getDate(),"ÈÕ",changeDate.getHours(),"µã",changeDate.getMinutes(),"·Ö");
+	document.write("æœ¬æ–‡æ¡£æœ€åæ›´æ–°æ—¥æœŸï¼š",changeDate.getYear(),"å¹´",changeDate.getMonth()+1,"æœˆ",changeDate.getDate(),"æ—¥",changeDate.getHours(),"ç‚¹",changeDate.getMinutes(),"åˆ†");
 	return;
 }

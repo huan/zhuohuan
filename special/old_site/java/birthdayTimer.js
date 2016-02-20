@@ -32,9 +32,9 @@ function birthdayTimer() //return true if is my birthday.:)
 	minutes=59-minutes;
 	hours=23-hours;
 	date=29-date;
-	month=11-month; //ÎªÊ²Ã´¶¼Òª¼õÒ»£¿£¿ 
+	month=11-month; //ä¸ºä»€ä¹ˆéƒ½è¦å‡ä¸€ï¼Ÿï¼Ÿ 
 
-	msg=month+"¸öÔÂ"+date+"Ìì"+hours+"Ğ¡Ê±"+minutes+"·ÖÖÓ"+seconds+"Ãë¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡";
+	msg=month+"ä¸ªæœˆ"+date+"å¤©"+hours+"å°æ—¶"+minutes+"åˆ†é’Ÿ"+seconds+"ç§’ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€";
 	document.Birthday.Timer.value=msg;
 	setTimeout("birthdayTimer()",1000);
 

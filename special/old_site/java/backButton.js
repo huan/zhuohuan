@@ -1,6 +1,6 @@
 function backButton()
-{	overMsg="»Øµ½ÉÏÒ»Ò³¡£";
+{	overMsg="å›žåˆ°ä¸Šä¸€é¡µã€‚";
 	outMsg="';
-document.write("<a href='' onClick='History.go(-1);return true' onMouseOver='window.status=overMsg;return true' onMouseOut='window.status=outMsg'>·µ»Ø</a><br>");
+document.write("<a href='' onClick='History.go(-1);return true' onMouseOver='window.status=overMsg;return true' onMouseOut='window.status=outMsg'>è¿”å›ž</a><br>");
 	return true;
 }
