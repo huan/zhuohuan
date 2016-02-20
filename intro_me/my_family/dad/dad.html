@@ -1,0 +1,335 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>老爸</title>
+
+
+<script LANGUAGE="JavaScript" FPTYPE="dynamicanimation">
+<!--
+  // If you want to change this script, you must also make the following
+  // changes so that FrontPage will not overwrite your new script.
+  // In the script tag, change type="dynamicanimation" to type="mydynamicanimation"
+  // In the first script statement, change "dynamicanimation" to "mydynamicanimation"
+  // Throughout the HTML content, change dynamicanimation= to mydynamicanimation=
+  // Change function dynAnimation to function mydynAnimation
+  // In the body tag, change onload="dynAnimation()" to onload="mydynAnimation()"
+  dynamicanimAttr = "dynamicanimation"
+  animateElements = new Array()
+  currentElement = 0
+  speed = 0
+  stepsZoom = 8
+  stepsWord = 8
+  stepsFly = 12
+  stepsSpiral = 16
+  steps = stepsZoom
+  step = 0
+  outString = ""
+  function dynAnimation()
+  {
+    var ms = navigator.appVersion.indexOf("MSIE")
+    ie4 = (ms>0) && (parseInt(navigator.appVersion.substring(ms+5, ms+6)) >= 4)
+    if(!ie4)
+    {
+      if((navigator.appName == "Netscape") &&
+         (parseInt(navigator.appVersion.substring(0, 1)) >= 4))
+      {
+        for (index=document.layers.length-1; index >= 0; index--)
+        {
+            layer=document.layers[index]
+            if (layer.left==10000)
+                layer.left=0
+        }
+      }
+      return
+    }
+    for (index=document.all.length-1; index >= document.body.sourceIndex; index--)
+    {
+      el = document.all[index]
+      animation = el.getAttribute(dynamicanimAttr, false)
+      if(null != animation)
+      {
+        if(animation == "dropWord" || animation == "flyTopRightWord" || animation == "flyBottomRightWord")
+        {
+          ih = el.innerHTML
+          outString = ""
+          i1 = 0
+          iend = ih.length
+          while(true)
+          {
+            i2 = startWord(ih, i1)
+            if(i2 == -1)
+              i2 = iend
+            outWord(ih, i1, i2, false, "")
+            if(i2 == iend)
+              break
+            i1 = i2
+            i2 = endWord(ih, i1)
+            if(i2 == -1)
+              i2 = iend
+            outWord(ih, i1, i2, true, animation)
+            if(i2 == iend)
+              break
+            i1 = i2
+          }
+          document.all[index].innerHTML = outString
+          document.all[index].style.posLeft = 0
+          document.all[index].setAttribute(dynamicanimAttr, null)
+        }
+        if(animation == "zoomIn" || animation == "zoomOut")
+        {
+          ih = el.innerHTML
+          outString = "<SPAN " + dynamicanimAttr + "=\"" + animation + "\" style=\"position: relative; left: 10000;\">"
+          outString += ih
+          outString += "</SPAN>"
+          document.all[index].innerHTML = outString
+          document.all[index].style.posLeft = 0
+          document.all[index].setAttribute(dynamicanimAttr, null)
+        }
+      }
+    }
+    i = 0
+    for (index=document.body.sourceIndex; index < document.all.length; index++)
+    {
+      el = document.all[index]
+      animation = el.getAttribute(dynamicanimAttr, false)
+      if (null != animation)
+      {
+        if(animation == "flyLeft")
+        {
+          el.style.posLeft = 10000-offsetLeft(el)-el.offsetWidth
+          el.style.posTop = 0
+        }
+        else if(animation == "flyRight")
+        {
+          el.style.posLeft = 10000-offsetLeft(el)+document.body.offsetWidth
+          el.style.posTop = 0
+        }
+        else if(animation == "flyTop" || animation == "dropWord")
+        {
+          el.style.posLeft = 0
+          el.style.posTop = document.body.scrollTop-offsetTop(el)-el.offsetHeight
+        }
+        else if(animation == "flyBottom")
+        {
+          el.style.posLeft = 0
+          el.style.posTop = document.body.scrollTop-offsetTop(el)+document.body.offsetHeight
+        }
+        else if(animation == "flyTopLeft")
+        {
+          el.style.posLeft = 10000-offsetLeft(el)-el.offsetWidth
+          el.style.posTop = document.body.scrollTop-offsetTop(el)-el.offsetHeight
+        }
+        else if(animation == "flyTopRight" || animation == "flyTopRightWord")
+        {
+          el.style.posLeft = 10000-offsetLeft(el)+document.body.offsetWidth
+          el.style.posTop = document.body.scrollTop-offsetTop(el)-el.offsetHeight
+        }
+        else if(animation == "flyBottomLeft")
+        {
+          el.style.posLeft = 10000-offsetLeft(el)-el.offsetWidth
+          el.style.posTop = document.body.scrollTop-offsetTop(el)+document.body.offsetHeight
+        }
+        else if(animation == "flyBottomRight" || animation == "flyBottomRightWord")
+        {
+          el.style.posLeft = 10000-offsetLeft(el)+document.body.offsetWidth
+          el.style.posTop = document.body.scrollTop-offsetTop(el)+document.body.offsetHeight
+        }
+        else if(animation == "spiral")
+        {
+          el.style.posLeft = 10000-offsetLeft(el)-el.offsetWidth
+          el.style.posTop = document.body.scrollTop-offsetTop(el)-el.offsetHeight
+        }
+        else if(animation == "zoomIn")
+        {
+          el.style.posLeft = 10000
+          el.style.posTop = 0
+        }
+        else if(animation == "zoomOut")
+        {
+          el.style.posLeft = 10000
+          el.style.posTop = 0
+        }
+        else
+        {
+          el.style.posLeft = 10000-offsetLeft(el)-el.offsetWidth
+          el.style.posTop = 0
+        }
+        el.initLeft = el.style.posLeft
+        el.initTop = el.style.posTop
+        animateElements[i++] = el
+      }
+    }
+    window.setTimeout("animate();", speed)
+  }
+  function offsetLeft(el)
+  {
+    x = el.offsetLeft
+    for (e = el.offsetParent; e; e = e.offsetParent)
+      x += e.offsetLeft;
+    return x
+  } 
+  function offsetTop(el)
+  {
+    y = el.offsetTop
+    for (e = el.offsetParent; e; e = e.offsetParent)
+      y += e.offsetTop;
+    return y
+  } 
+  function startWord(ih, i)
+  {
+    for(tag = false; i < ih.length; i++)
+    {
+      c = ih.charAt(i)
+      if(c == '<')
+        tag = true
+      if(!tag)
+        return i
+      if(c == '>')
+        tag = false
+    }
+    return -1
+  }
+  function endWord(ih, i)
+  {
+    nonSpace = false
+    space = false
+    while(i < ih.length)
+    {
+      c = ih.charAt(i)
+      if(c != ' ')
+        nonSpace = true
+      if(nonSpace && c == ' ')
+        space = true
+      if(c == '<')
+        return i
+      if(space && c != ' ')
+        return i
+      i++
+    }
+    return -1
+  }
+  function outWord(ih, i1, i2, dyn, anim)
+  {
+    if(dyn)
+      outString += "<SPAN " + dynamicanimAttr + "=\"" + anim + "\" style=\"position: relative; left: 10000;\">"
+    outString += ih.substring(i1, i2)
+    if(dyn)
+      outString += "</SPAN>"
+  }
+  function animate()
+  {
+    el = animateElements[currentElement]
+    animation = el.getAttribute(dynamicanimAttr, false)
+    step++
+    if(animation == "spiral")
+    {
+      steps = stepsSpiral
+      v = step/steps
+      rf = 1.0 - v
+      t = v * 2.0*Math.PI
+      rx = Math.max(Math.abs(el.initLeft), 200)
+      ry = Math.max(Math.abs(el.initTop),  200)
+      el.style.posLeft = Math.ceil(-rf*Math.cos(t)*rx)
+      el.style.posTop  = Math.ceil(-rf*Math.sin(t)*ry)
+    }
+    else if(animation == "zoomIn")
+    {
+      steps = stepsZoom
+      el.style.fontSize = Math.ceil(50+50*step/steps) + "%"
+      el.style.posLeft = 0
+    }
+    else if(animation == "zoomOut")
+    {
+      steps = stepsZoom
+      el.style.fontSize = Math.ceil(100+200*(steps-step)/steps) + "%"
+      el.style.posLeft = 0
+    }
+    else
+    {
+      steps = stepsFly
+      if(animation == "dropWord" || animation == "flyTopRightWord" || animation == "flyBottomRightWord")
+        steps = stepsWord
+      dl = el.initLeft / steps
+      dt = el.initTop  / steps
+      el.style.posLeft = el.style.posLeft - dl
+      el.style.posTop = el.style.posTop - dt
+    }
+    if (step >= steps) 
+    {
+      el.style.posLeft = 0
+      el.style.posTop = 0
+      currentElement++
+      step = 0
+    }
+    if(currentElement < animateElements.length)
+      window.setTimeout("animate();", speed)
+  }
+//-->
+</script><meta name="Microsoft Theme" content="safari 111, default">
+<meta name="Microsoft Border" content="tl, default">
+</head>
+
+<body onload="dynAnimation()" background="../../../_themes/safari/saftextr.jpg" bgcolor="#000000" text="#CCCC99" link="#CC9900" vlink="#996600" alink="#FF3300"><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td>
+
+<p align="center"><font size="6"><strong><img src="_derived/dad.html_cmp_safari110_bnr.gif" width="600" height="60" border="0" alt="老爸"></strong></font><br>
+<script language="JavaScript"><!--
+MSFPhover = 
+  (((navigator.appName == "Netscape") && 
+  (parseInt(navigator.appVersion) >= 3 )) || 
+  ((navigator.appName == "Microsoft Internet Explorer") && 
+  (parseInt(navigator.appVersion) >= 4 ))); 
+function MSFPpreload(img) 
+{
+  var a=new Image(); a.src=img; return a; 
+}
+// --></script><script language="JavaScript"><!--
+if(MSFPhover) { MSFPnav1n=MSFPpreload("../../../_derived/home_cmp_safari110_hbtn.gif"); MSFPnav1h=MSFPpreload("../../../_derived/home_cmp_safari110_hbtn_a.gif"); }
+// --></script><a href="../../../index.html" language="JavaScript" onmouseover="if(MSFPhover) document['MSFPnav1'].src=MSFPnav1h.src" onmouseout="if(MSFPhover) document['MSFPnav1'].src=MSFPnav1n.src"><img src="../../../_derived/home_cmp_safari110_hbtn.gif" width="140" height="60" border="0" alt="Home" align="middle" name="MSFPnav1"></a> <script language="JavaScript"><!--
+if(MSFPhover) { MSFPnav2n=MSFPpreload("../../../_derived/up_cmp_safari110_hbtn.gif"); MSFPnav2h=MSFPpreload("../../../_derived/up_cmp_safari110_hbtn_a.gif"); }
+// --></script><a href="../family.htm" language="JavaScript" onmouseover="if(MSFPhover) document['MSFPnav2'].src=MSFPnav2h.src" onmouseout="if(MSFPhover) document['MSFPnav2'].src=MSFPnav2n.src"><img src="../../../_derived/up_cmp_safari110_hbtn.gif" width="140" height="60" border="0" alt="Up" align="middle" name="MSFPnav2"></a> <img src="_derived/dad.html_cmp_safari110_hbtn_p.gif" width="140" height="60" border="0" alt="老爸" align="middle"> <script language="JavaScript"><!--
+if(MSFPhover) { MSFPnav3n=MSFPpreload("../mom/_derived/mom.html_cmp_safari110_hbtn.gif"); MSFPnav3h=MSFPpreload("../mom/_derived/mom.html_cmp_safari110_hbtn_a.gif"); }
+// --></script><a href="../mom/mom.html" language="JavaScript" onmouseover="if(MSFPhover) document['MSFPnav3'].src=MSFPnav3h.src" onmouseout="if(MSFPhover) document['MSFPnav3'].src=MSFPnav3n.src"><img src="../mom/_derived/mom.html_cmp_safari110_hbtn.gif" width="140" height="60" border="0" alt="老妈" align="middle" name="MSFPnav3"></a> <script language="JavaScript"><!--
+if(MSFPhover) { MSFPnav4n=MSFPpreload("../girlfriend/_derived/girlfriend.html_cmp_safari110_hbtn.gif"); MSFPnav4h=MSFPpreload("../girlfriend/_derived/girlfriend.html_cmp_safari110_hbtn_a.gif"); }
+// --></script><a href="../girlfriend/girlfriend.html" language="JavaScript" onmouseover="if(MSFPhover) document['MSFPnav4'].src=MSFPnav4h.src" onmouseout="if(MSFPhover) document['MSFPnav4'].src=MSFPnav4n.src"><img src="../girlfriend/_derived/girlfriend.html_cmp_safari110_hbtn.gif" width="140" height="60" border="0" alt="女友" align="middle" name="MSFPnav4"></a> <script language="JavaScript"><!--
+if(MSFPhover) { MSFPnav5n=MSFPpreload("../wife/_derived/wife.html_cmp_safari110_hbtn.gif"); MSFPnav5h=MSFPpreload("../wife/_derived/wife.html_cmp_safari110_hbtn_a.gif"); }
+// --></script><a href="../wife/wife.html" language="JavaScript" onmouseover="if(MSFPhover) document['MSFPnav5'].src=MSFPnav5h.src" onmouseout="if(MSFPhover) document['MSFPnav5'].src=MSFPnav5n.src"><img src="../wife/_derived/wife.html_cmp_safari110_hbtn.gif" width="140" height="60" border="0" alt="老婆" align="middle" name="MSFPnav5"></a> <script language="JavaScript"><!--
+if(MSFPhover) { MSFPnav6n=MSFPpreload("../lover/_derived/lover.html_cmp_safari110_hbtn.gif"); MSFPnav6h=MSFPpreload("../lover/_derived/lover.html_cmp_safari110_hbtn_a.gif"); }
+// --></script><a href="../lover/lover.html" language="JavaScript" onmouseover="if(MSFPhover) document['MSFPnav6'].src=MSFPnav6h.src" onmouseout="if(MSFPhover) document['MSFPnav6'].src=MSFPnav6n.src"><img src="../lover/_derived/lover.html_cmp_safari110_hbtn.gif" width="140" height="60" border="0" alt="情人" align="middle" name="MSFPnav6"></a></p>
+</td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td valign="top" width="1%">
+
+<p><script language="JavaScript"><!--
+if(MSFPhover) { MSFPnav7n=MSFPpreload("_derived/me.html_cmp_safari110_vbtn.gif"); MSFPnav7h=MSFPpreload("_derived/me.html_cmp_safari110_vbtn_a.gif"); }
+// --></script><a href="me.html" language="JavaScript" onmouseover="if(MSFPhover) document['MSFPnav7'].src=MSFPnav7h.src" onmouseout="if(MSFPhover) document['MSFPnav7'].src=MSFPnav7n.src"><img src="_derived/me.html_cmp_safari110_vbtn.gif" width="140" height="60" border="0" alt="老爸的自述" name="MSFPnav7"></a><br><script language="JavaScript"><!--
+if(MSFPhover) { MSFPnav8n=MSFPpreload("writings/_derived/revolution1.html_cmp_safari110_vbtn.gif"); MSFPnav8h=MSFPpreload("writings/_derived/revolution1.html_cmp_safari110_vbtn_a.gif"); }
+// --></script><a href="writings/revolution1.html" language="JavaScript" onmouseover="if(MSFPhover) document['MSFPnav8'].src=MSFPnav8h.src" onmouseout="if(MSFPhover) document['MSFPnav8'].src=MSFPnav8n.src"><img src="writings/_derived/revolution1.html_cmp_safari110_vbtn.gif" width="140" height="60" border="0" alt="批判ＸＸ发言稿" name="MSFPnav8"></a><br><script language="JavaScript"><!--
+if(MSFPhover) { MSFPnav9n=MSFPpreload("writings/_derived/revolution2.html_cmp_safari110_vbtn.gif"); MSFPnav9h=MSFPpreload("writings/_derived/revolution2.html_cmp_safari110_vbtn_a.gif"); }
+// --></script><a href="writings/revolution2.html" language="JavaScript" onmouseover="if(MSFPhover) document['MSFPnav9'].src=MSFPnav9h.src" onmouseout="if(MSFPhover) document['MSFPnav9'].src=MSFPnav9n.src"><img src="writings/_derived/revolution2.html_cmp_safari110_vbtn.gif" width="140" height="60" border="0" alt="批判ＸＸＸ发言" name="MSFPnav9"></a><br><script language="JavaScript"><!--
+if(MSFPhover) { MSFPnav10n=MSFPpreload("_derived/photo.htm_cmp_safari110_vbtn.gif"); MSFPnav10h=MSFPpreload("_derived/photo.htm_cmp_safari110_vbtn_a.gif"); }
+// --></script><a href="photo.htm" language="JavaScript" onmouseover="if(MSFPhover) document['MSFPnav10'].src=MSFPnav10h.src" onmouseout="if(MSFPhover) document['MSFPnav10'].src=MSFPnav10n.src"><img src="_derived/photo.htm_cmp_safari110_vbtn.gif" width="140" height="60" border="0" alt="老爸的照片" name="MSFPnav10"></a></p>
+</td><td valign="top" width="24"></td><!--msnavigation--><td valign="top">
+
+<p><font face="楷体_GB2312"><img src="../../../images/work.gif" alt="work.gif (4361 bytes)" WIDTH="40" HEIGHT="40"> </font></p>
+
+<h4 dynamicanimation="zoomOut" style="position: relative !important; left: 10000 !important"><!--mstheme--><font color="#999933"><font face="楷体_GB2312">　　</font><font face="楷体_GB2312" size="6">看</font><font face="楷体_GB2312">看文化大革命后期俺老爸批判别人的稿子吧！哈哈。(注：摘自老爸的早期笔记，字体呼大呼小的风格为原著所有；全是真人真事，为了合适起见，人名全部隐去;-)</font><!--mstheme--></font></h4>
+<div align="center"><center>
+
+<table border="1" bordercolordark="#996600" bordercolorlight="#CC9933">
+  <tr>
+    <td><font face="楷体_GB2312">关系</font></td>
+    <td><font face="楷体_GB2312">老爸</font></td>
+  </tr>
+  <tr>
+    <td><font face="楷体_GB2312">姓名</font></td>
+    <td><font face="楷体_GB2312">李宝恒</font></td>
+  </tr>
+  <tr>
+    <td><font face="楷体_GB2312">性别</font></td>
+    <td><font face="楷体_GB2312">男……</font></td>
+  </tr>
+</table>
+</center></div>
+
+<p><font face="楷体_GB2312">　　偶老爸小时侯赶上三年自然灾害；受过文化大革命的洗礼；停课闹革命，在当时的<strong>造反派、保皇派、逍遥派</strong>中属于<strong><em>逍遥派</em></strong>；当过红卫兵，做火车大串联几千公里，受过毛主席接见一次；；高举伟大的毛泽东思想旗帜；复课闹革命；当过工农兵学员。是货真价实的老三届(68界)，如假包换。*_^</font></p>
+　<!--msnavigation--></td></tr><!--msnavigation--></table></body>
+</html>

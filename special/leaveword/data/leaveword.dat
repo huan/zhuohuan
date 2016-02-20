@@ -1,0 +1,39 @@
+<div align=left>
+	请留尊姓大名：<input name="guestname" size="30" ><BR>
+	您的电子信箱：<input name="mail" size=30><BR>
+    个人主页地址：<INPUT id=text1 name="homepageurl" size=30><BR>
+    个人主页标题：<INPUT id=text3 name="homepagename" size=30><br>
+    水木清华　ID：<INPUT id=text3 name="smthid" size=30><br>
+    您　　　　是：<select name="age" size="1">
+            <option value="小男孩儿">小男孩儿
+            <option value="小女孩儿">小女孩儿
+            <option value="痴情少男">痴情少男
+            <option value="纯情少女">纯情少女
+            <option selected value="男大学生">男大学生
+            <option value="女大学生">女大学生
+            <option value="中年壮汉">中年壮汉
+            <option value="中年妇女">中年妇女
+            <option value="老头">老大爷
+            <option value="老婆婆">老婆婆
+    </select>
+	<BR>您使用的网络：<select name="net" size="1">
+            <option selected value="Cernet教育网">Cernet 教育网
+            <option value="ChinaNet">ChinaNet
+            <option value="国内其他网">国内其他网
+            <option value="国外...">国外...
+    </select></P>
+    <P>您认为本烂站：<br>
+		<INPUT id=radio1 type=radio name="face" checked value='fchappy'><img src="images/fchappy.gif" align="absmiddle" width=25 height=25 border=0>
+		<INPUT id=radio2 name="face" type=radio value='fccry'><img src="images/fccry.gif" align="absmiddle" width=25 height=25 border=0>
+		<INPUT id=radio3 name="face" type=radio value='fcangry'><img src="images/fcangry.gif" align="absmiddle" width=25 height=25 border=0>
+		<INPUT id=radio4 name="face" type=radio value='fcpuzzle'><img src="images/fcpuzzle.gif" align="absmiddle" width=25 height=25 border=0></P>
+    <P>
+		<input type="radio" value="我的确看到了一堆垃圾，你的主页可以称之为垃圾站。" checked name="opinion">我的确看到了一堆垃圾，你的主页可以称之为垃圾站。<BR>
+        <input type="radio" name="opinion" value="你的站点是我所见到的互连网上面最差的网站之一。 ">你的站点是我所见到的互连网上面最差的网站之一。 <BR>
+        <input type="radio" name="opinion" value="搞什么！我连到这里纯粹是浪费我的时间！">搞什么！我连到这里纯粹是浪费我的时间！</P>
+    <P>您的金玉良言请写在这里：<BR>
+    标题：
+		<INPUT id=text2 name="title" size=30><BR>
+	内容：<br><TEXTAREA cols=60 name="words" rows=9></TEXTAREA></P>
+    <p><input type="submit" value="我写完啦！快快替我保存下来！！" onClick="return verify()"></p>
+</div> 

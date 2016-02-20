@@ -1,0 +1,319 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta xx="王洪">
+<title>批判ＸＸ发言稿</title>
+
+
+<script LANGUAGE="JavaScript" FPTYPE="dynamicanimation">
+<!--
+  // If you want to change this script, you must also make the following
+  // changes so that FrontPage will not overwrite your new script.
+  // In the script tag, change type="dynamicanimation" to type="mydynamicanimation"
+  // In the first script statement, change "dynamicanimation" to "mydynamicanimation"
+  // Throughout the HTML content, change dynamicanimation= to mydynamicanimation=
+  // Change function dynAnimation to function mydynAnimation
+  // In the body tag, change onload="dynAnimation()" to onload="mydynAnimation()"
+  dynamicanimAttr = "dynamicanimation"
+  animateElements = new Array()
+  currentElement = 0
+  speed = 0
+  stepsZoom = 8
+  stepsWord = 8
+  stepsFly = 12
+  stepsSpiral = 16
+  steps = stepsZoom
+  step = 0
+  outString = ""
+  function dynAnimation()
+  {
+    var ms = navigator.appVersion.indexOf("MSIE")
+    ie4 = (ms>0) && (parseInt(navigator.appVersion.substring(ms+5, ms+6)) >= 4)
+    if(!ie4)
+    {
+      if((navigator.appName == "Netscape") &&
+         (parseInt(navigator.appVersion.substring(0, 1)) >= 4))
+      {
+        for (index=document.layers.length-1; index >= 0; index--)
+        {
+            layer=document.layers[index]
+            if (layer.left==10000)
+                layer.left=0
+        }
+      }
+      return
+    }
+    for (index=document.all.length-1; index >= document.body.sourceIndex; index--)
+    {
+      el = document.all[index]
+      animation = el.getAttribute(dynamicanimAttr, false)
+      if(null != animation)
+      {
+        if(animation == "dropWord" || animation == "flyTopRightWord" || animation == "flyBottomRightWord")
+        {
+          ih = el.innerHTML
+          outString = ""
+          i1 = 0
+          iend = ih.length
+          while(true)
+          {
+            i2 = startWord(ih, i1)
+            if(i2 == -1)
+              i2 = iend
+            outWord(ih, i1, i2, false, "")
+            if(i2 == iend)
+              break
+            i1 = i2
+            i2 = endWord(ih, i1)
+            if(i2 == -1)
+              i2 = iend
+            outWord(ih, i1, i2, true, animation)
+            if(i2 == iend)
+              break
+            i1 = i2
+          }
+          document.all[index].innerHTML = outString
+          document.all[index].style.posLeft = 0
+          document.all[index].setAttribute(dynamicanimAttr, null)
+        }
+        if(animation == "zoomIn" || animation == "zoomOut")
+        {
+          ih = el.innerHTML
+          outString = "<SPAN " + dynamicanimAttr + "=\"" + animation + "\" style=\"position: relative; left: 10000;\">"
+          outString += ih
+          outString += "</SPAN>"
+          document.all[index].innerHTML = outString
+          document.all[index].style.posLeft = 0
+          document.all[index].setAttribute(dynamicanimAttr, null)
+        }
+      }
+    }
+    i = 0
+    for (index=document.body.sourceIndex; index < document.all.length; index++)
+    {
+      el = document.all[index]
+      animation = el.getAttribute(dynamicanimAttr, false)
+      if (null != animation)
+      {
+        if(animation == "flyLeft")
+        {
+          el.style.posLeft = 10000-offsetLeft(el)-el.offsetWidth
+          el.style.posTop = 0
+        }
+        else if(animation == "flyRight")
+        {
+          el.style.posLeft = 10000-offsetLeft(el)+document.body.offsetWidth
+          el.style.posTop = 0
+        }
+        else if(animation == "flyTop" || animation == "dropWord")
+        {
+          el.style.posLeft = 0
+          el.style.posTop = document.body.scrollTop-offsetTop(el)-el.offsetHeight
+        }
+        else if(animation == "flyBottom")
+        {
+          el.style.posLeft = 0
+          el.style.posTop = document.body.scrollTop-offsetTop(el)+document.body.offsetHeight
+        }
+        else if(animation == "flyTopLeft")
+        {
+          el.style.posLeft = 10000-offsetLeft(el)-el.offsetWidth
+          el.style.posTop = document.body.scrollTop-offsetTop(el)-el.offsetHeight
+        }
+        else if(animation == "flyTopRight" || animation == "flyTopRightWord")
+        {
+          el.style.posLeft = 10000-offsetLeft(el)+document.body.offsetWidth
+          el.style.posTop = document.body.scrollTop-offsetTop(el)-el.offsetHeight
+        }
+        else if(animation == "flyBottomLeft")
+        {
+          el.style.posLeft = 10000-offsetLeft(el)-el.offsetWidth
+          el.style.posTop = document.body.scrollTop-offsetTop(el)+document.body.offsetHeight
+        }
+        else if(animation == "flyBottomRight" || animation == "flyBottomRightWord")
+        {
+          el.style.posLeft = 10000-offsetLeft(el)+document.body.offsetWidth
+          el.style.posTop = document.body.scrollTop-offsetTop(el)+document.body.offsetHeight
+        }
+        else if(animation == "spiral")
+        {
+          el.style.posLeft = 10000-offsetLeft(el)-el.offsetWidth
+          el.style.posTop = document.body.scrollTop-offsetTop(el)-el.offsetHeight
+        }
+        else if(animation == "zoomIn")
+        {
+          el.style.posLeft = 10000
+          el.style.posTop = 0
+        }
+        else if(animation == "zoomOut")
+        {
+          el.style.posLeft = 10000
+          el.style.posTop = 0
+        }
+        else
+        {
+          el.style.posLeft = 10000-offsetLeft(el)-el.offsetWidth
+          el.style.posTop = 0
+        }
+        el.initLeft = el.style.posLeft
+        el.initTop = el.style.posTop
+        animateElements[i++] = el
+      }
+    }
+    window.setTimeout("animate();", speed)
+  }
+  function offsetLeft(el)
+  {
+    x = el.offsetLeft
+    for (e = el.offsetParent; e; e = e.offsetParent)
+      x += e.offsetLeft;
+    return x
+  } 
+  function offsetTop(el)
+  {
+    y = el.offsetTop
+    for (e = el.offsetParent; e; e = e.offsetParent)
+      y += e.offsetTop;
+    return y
+  } 
+  function startWord(ih, i)
+  {
+    for(tag = false; i < ih.length; i++)
+    {
+      c = ih.charAt(i)
+      if(c == '<')
+        tag = true
+      if(!tag)
+        return i
+      if(c == '>')
+        tag = false
+    }
+    return -1
+  }
+  function endWord(ih, i)
+  {
+    nonSpace = false
+    space = false
+    while(i < ih.length)
+    {
+      c = ih.charAt(i)
+      if(c != ' ')
+        nonSpace = true
+      if(nonSpace && c == ' ')
+        space = true
+      if(c == '<')
+        return i
+      if(space && c != ' ')
+        return i
+      i++
+    }
+    return -1
+  }
+  function outWord(ih, i1, i2, dyn, anim)
+  {
+    if(dyn)
+      outString += "<SPAN " + dynamicanimAttr + "=\"" + anim + "\" style=\"position: relative; left: 10000;\">"
+    outString += ih.substring(i1, i2)
+    if(dyn)
+      outString += "</SPAN>"
+  }
+  function animate()
+  {
+    el = animateElements[currentElement]
+    animation = el.getAttribute(dynamicanimAttr, false)
+    step++
+    if(animation == "spiral")
+    {
+      steps = stepsSpiral
+      v = step/steps
+      rf = 1.0 - v
+      t = v * 2.0*Math.PI
+      rx = Math.max(Math.abs(el.initLeft), 200)
+      ry = Math.max(Math.abs(el.initTop),  200)
+      el.style.posLeft = Math.ceil(-rf*Math.cos(t)*rx)
+      el.style.posTop  = Math.ceil(-rf*Math.sin(t)*ry)
+    }
+    else if(animation == "zoomIn")
+    {
+      steps = stepsZoom
+      el.style.fontSize = Math.ceil(50+50*step/steps) + "%"
+      el.style.posLeft = 0
+    }
+    else if(animation == "zoomOut")
+    {
+      steps = stepsZoom
+      el.style.fontSize = Math.ceil(100+200*(steps-step)/steps) + "%"
+      el.style.posLeft = 0
+    }
+    else
+    {
+      steps = stepsFly
+      if(animation == "dropWord" || animation == "flyTopRightWord" || animation == "flyBottomRightWord")
+        steps = stepsWord
+      dl = el.initLeft / steps
+      dt = el.initTop  / steps
+      el.style.posLeft = el.style.posLeft - dl
+      el.style.posTop = el.style.posTop - dt
+    }
+    if (step >= steps) 
+    {
+      el.style.posLeft = 0
+      el.style.posTop = 0
+      currentElement++
+      step = 0
+    }
+    if(currentElement < animateElements.length)
+      window.setTimeout("animate();", speed)
+  }
+//-->
+</script><meta name="Microsoft Theme" content="safari 111, default">
+<meta name="Microsoft Border" content="tl, default">
+</head>
+
+<body onload="dynAnimation()" background="../../../../_themes/safari/saftextr.jpg" bgcolor="#000000" text="#CCCC99" link="#CC9900" vlink="#996600" alink="#FF3300"><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td>
+
+<p align="center"><font size="6"><strong><img src="_derived/revolution1.html_cmp_safari110_bnr.gif" width="600" height="60" border="0" alt="批判ＸＸ发言稿"></strong></font><br>
+<script language="JavaScript"><!--
+MSFPhover = 
+  (((navigator.appName == "Netscape") && 
+  (parseInt(navigator.appVersion) >= 3 )) || 
+  ((navigator.appName == "Microsoft Internet Explorer") && 
+  (parseInt(navigator.appVersion) >= 4 ))); 
+function MSFPpreload(img) 
+{
+  var a=new Image(); a.src=img; return a; 
+}
+// --></script><script language="JavaScript"><!--
+if(MSFPhover) { MSFPnav1n=MSFPpreload("../../../../_derived/home_cmp_safari110_hbtn.gif"); MSFPnav1h=MSFPpreload("../../../../_derived/home_cmp_safari110_hbtn_a.gif"); }
+// --></script><a href="../../../../index.html" language="JavaScript" onmouseover="if(MSFPhover) document['MSFPnav1'].src=MSFPnav1h.src" onmouseout="if(MSFPhover) document['MSFPnav1'].src=MSFPnav1n.src"><img src="../../../../_derived/home_cmp_safari110_hbtn.gif" width="140" height="60" border="0" alt="Home" align="middle" name="MSFPnav1"></a> <script language="JavaScript"><!--
+if(MSFPhover) { MSFPnav2n=MSFPpreload("../../../../_derived/up_cmp_safari110_hbtn.gif"); MSFPnav2h=MSFPpreload("../../../../_derived/up_cmp_safari110_hbtn_a.gif"); }
+// --></script><a href="../dad.html" language="JavaScript" onmouseover="if(MSFPhover) document['MSFPnav2'].src=MSFPnav2h.src" onmouseout="if(MSFPhover) document['MSFPnav2'].src=MSFPnav2n.src"><img src="../../../../_derived/up_cmp_safari110_hbtn.gif" width="140" height="60" border="0" alt="Up" align="middle" name="MSFPnav2"></a> <script language="JavaScript"><!--
+if(MSFPhover) { MSFPnav3n=MSFPpreload("../_derived/me.html_cmp_safari110_hbtn.gif"); MSFPnav3h=MSFPpreload("../_derived/me.html_cmp_safari110_hbtn_a.gif"); }
+// --></script><a href="../me.html" language="JavaScript" onmouseover="if(MSFPhover) document['MSFPnav3'].src=MSFPnav3h.src" onmouseout="if(MSFPhover) document['MSFPnav3'].src=MSFPnav3n.src"><img src="../_derived/me.html_cmp_safari110_hbtn.gif" width="140" height="60" border="0" alt="老爸的自述" align="middle" name="MSFPnav3"></a> <img src="_derived/revolution1.html_cmp_safari110_hbtn_p.gif" width="140" height="60" border="0" alt="批判ＸＸ发言稿" align="middle"> <script language="JavaScript"><!--
+if(MSFPhover) { MSFPnav4n=MSFPpreload("_derived/revolution2.html_cmp_safari110_hbtn.gif"); MSFPnav4h=MSFPpreload("_derived/revolution2.html_cmp_safari110_hbtn_a.gif"); }
+// --></script><a href="revolution2.html" language="JavaScript" onmouseover="if(MSFPhover) document['MSFPnav4'].src=MSFPnav4h.src" onmouseout="if(MSFPhover) document['MSFPnav4'].src=MSFPnav4n.src"><img src="_derived/revolution2.html_cmp_safari110_hbtn.gif" width="140" height="60" border="0" alt="批判ＸＸＸ发言" align="middle" name="MSFPnav4"></a> <script language="JavaScript"><!--
+if(MSFPhover) { MSFPnav5n=MSFPpreload("../_derived/photo.htm_cmp_safari110_hbtn.gif"); MSFPnav5h=MSFPpreload("../_derived/photo.htm_cmp_safari110_hbtn_a.gif"); }
+// --></script><a href="../photo.htm" language="JavaScript" onmouseover="if(MSFPhover) document['MSFPnav5'].src=MSFPnav5h.src" onmouseout="if(MSFPhover) document['MSFPnav5'].src=MSFPnav5n.src"><img src="../_derived/photo.htm_cmp_safari110_hbtn.gif" width="140" height="60" border="0" alt="老爸的照片" align="middle" name="MSFPnav5"></a></p>
+</td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td valign="top" width="1%">
+
+<p></p>
+</td><td valign="top" width="24"></td><!--msnavigation--><td valign="top">
+
+<h4 align="center" dynamicanimation="flyBottom" style="position: relative !important; left: 10000 !important"><!--mstheme--><font color="#999933"><font size="6">必</font>须在<font size="6">上</font>层建筑 对<font size="6">资</font>产<font size="6">阶</font>级实行全面<font size="6">专</font>政&nbsp; <!--mstheme--></font></h4>
+<font face="楷体_GB2312">
+
+<p>　　<font size="5">毛</font>主<font size="5">席</font>指出：列宁<font size="5">为</font>什么<font size="5">说</font>对资产阶级<font size="5">实</font>行专政。<font size="5">这</font>个<font size="5">问</font>题要<font size="5">搞</font>清楚。<font size="5">这</font>个<font size="5">问</font>题不搞清楚就<font size="5">会</font>变<font size="5">修</font>正主<font size="5">义</font>。由于社<font size="5">会</font>主<font size="5">义</font>存在着阶级和阶级斗<font size="5">争</font>，还不可<font size="5">避</font>免的<font size="5">存</font>在<font size="5">着</font>资产阶级法权，就必然<font size="5">有</font>资产阶级思<font size="5">想</font>滋生的土<font size="5">壤</font>。在社会主<font size="5">义</font>这个<font size="5">相</font>当长的<font size="5">历</font>史阶段，被推翻的剥削阶级，决不甘<font size="5">心</font>于他<font size="5">们</font>的失败。他<font size="5">们</font>为了<font size="5">夺</font>回失去的<font size="5">天堂</font>，往往会<font size="5">利用</font>社<font size="5">会</font>主义时<font size="5">期</font>存在的旧社<font size="5">会</font>的<font size="5">痕迹</font>，<font size="5">存在</font>着资产阶级法权，存在<font size="5">着</font>滋生资本主<font size="5">义</font>的土<font size="5">壤</font>，<font size="5">疯</font>狂的鼓吹剥削阶级的<font size="5">人</font>生观，宣<font size="5">扬</font>资产阶级的生活<font size="5">作风</font>，<font size="5">无</font>孔不入<font size="5">的</font>从生活小节上<font size="5">向</font>无产阶级进攻。如果我<font size="5">们青</font>年不加强世<font size="5">界</font>观的改造，被这种<font size="5">阴</font>险手段所引诱和<font size="5">腐</font>蚀后，就<font size="5">会</font>忘记革<font size="5">命</font>青年身上所<font size="5">担</font>负的<font size="5">无</font>产阶级的<font size="5">历</font>史使<font size="5">命</font>，就会不<font size="5">问</font>政治无<font size="5">心</font>革命，就会<font size="5">抱</font>着人为财死鸟为食亡和林彪的利己多欲乃规律的生活信条甜滋滋的一头栽进资产阶级的<font size="5">万</font>丈深渊。像我校这样的教训还少<font size="5">吗</font>？其中ＸＸ就是一个<font size="5">典</font>型。</p>
+
+<p>　　<font size="5">Ｘ</font>Ｘ这个可耻盗窃分子的<font size="5">演变过程</font>就是一个<font size="5">由</font>小引大的<font size="5">过程</font>。他入学后不加强<font size="5">自</font>己的<font size="5">思想</font>改造，对教育革命视<font size="5">而</font>不见，听<font size="5">而</font>不<font size="5">闻</font>。政治学习睡大<font size="5">觉</font>，<font size="5">相</font>反他对那些黄色小<font size="5">说</font>却如获至宝，<font size="5">看</font>起来废寝忘食。<font size="5">由</font>此，剥削阶级的<font size="5">思想</font>在他的头脑里日益积累，政治上日益落后。在他的脑海里什么<font size="5">祖国</font>的前途，<font size="5">人类</font>的理<font size="5">想</font>都没<font size="5">有</font>关<font size="5">心</font>的必要。<font size="5">他认为人</font>活在世上，只要是吃的好穿的好，满足私欲就是最大的幸福。<font size="5">因</font>此，<font size="5">他</font>不顾社会舆论的谴责，卑鄙的<font size="5">伸</font>出了犯罪的魔爪，<font size="5">凡</font>是能<font size="5">自</font>己享<font size="5">用</font>并能换取货币的他都不轻易放过。比如：他到农场劳动<font size="5">偷</font>大头菜；在校偷铁锨，偷炕席，上街卖掉换取货币。尽情享<font size="5">用</font>。并把别<font size="5">人</font>的汇款单窃为己<font size="5">有</font>。在宿舍偷别<font size="5">人</font>的粮票，扫地时看到别<font size="5">人</font>一管<font size="5">钢</font>笔，也沾沾<font size="5">自</font>喜的放进<font size="5">自</font>己的腰包。使<font size="5">人</font>发笑的是，<font size="5">他</font>到食堂偷米没成，也要抓上一<font size="5">把</font>虾米皮，反正决不能空着手<font size="5">回</font>来……<font size="5">尽</font>管他一件件一桩桩的偷盗行<font size="5">为</font>是这样的可耻，可学校领导和<font size="5">团</font>组织及革命师生<font size="5">为</font>了把他从资产阶级的泥坑里拉出来，<font size="5">满腔</font>热情的进行了多次爱<font size="5">心</font>细致的教<font size="5">育</font>，任至意尽的挽救和批判，可资产阶级<font size="5">思想</font>严重的ＸＸ对<font size="5">同</font>学们的好意劝阻和帮助却漠然<font size="5">处</font>之。你有千条妙计，我<font size="5">有</font>一定之归。<font size="5">心</font>理总<font size="5">有</font>一个偷盗来钱的<font size="5">老</font>八本。屡教不改。对<font size="5">同</font>学搞<font size="5">两面</font>派，并以孔孟之道的唯<font size="5">心</font>史官观<font size="5">为自</font>己的偷盗行为辩护。<font size="5">遮</font>丑<font size="5">掩</font>盖。在班级批判他的丑恶行为的大会上，和同学起誓发愿什么“我过去偷<font size="5">人</font>不是人，以后偷<font size="5">人</font>更不是人；以后再偷<font size="5">人</font>天打五雷轰”。说<font size="5">起</font>话来语言虽不恰当，<font size="5">心</font>情似乎诚恳。可批判会刚完，<font size="5">他</font>那一系列庄重的诺言，像得<font size="5">健</font>忘症一样<font size="5">忘</font>得一干二净。他那一本正经得发誓，全<font size="5">像</font>肥皂<font size="5">泡</font>末一样<font size="5">变</font>得无影无踪。还是<font size="5">抱</font>着人不<font size="5">为</font>己，天诛<font size="5">地</font>灭得信条，不辞劳苦的徒步跋涉与城郊与公社，<font size="5">抱</font>着利己、害<font size="5">人</font>、犯罪的三只手寻找、<font size="5">窥</font>测，最后偷<font size="5">自</font>行车未<font size="5">成</font>被发现捕获。</p>
+
+<p>　　<font size="5">从</font>ＸＸ触目惊心<font size="5">由</font>小引大的变质过程来<font size="5">看</font>，使我<font size="5">认</font>识到一个<font size="5">人</font>的政治方<font size="5">向</font>和生活<font size="5">作风</font>是<font size="5">相</font>辅<font size="5">相</font>成的。生活上的<font size="5">腐</font>化堕落最终<font size="5">必</font>然导致政治上的蜕<font size="5">变</font>，成为新生的资产阶级份子。<font size="5">这</font>样的事<font size="5">情</font>并不是<font size="5">偶</font>然的，是剥削阶级<font size="5">向</font>无产阶级进攻的表现，是<font size="5">由</font>党的<font size="5">基</font>本路线所决定的。所以我<font size="5">们</font>切不可粗<font size="5">心</font>大意，一定要按照毛主席的教导：“无产阶级<font size="5">必</font>须在上层<font size="5">建</font>筑，其中<font size="5">包</font>括各个文化领域中对资产阶级实行全<font size="5">面</font>专政”。限制资产阶级法权，批判资产阶级思<font size="5">想</font>是我<font size="5">们</font>的战斗任务。借此机会，警告ＸＸ：<font size="5">党</font>的政策是坦白从宽抗拒从严，<font size="5">彻底</font>坦白交代才是你的唯一<font size="5">出</font>路，否则后果不堪设<font size="5">想</font>。<font size="5">同</font>时，也奉劝类似ＸＸ这样的<font size="5">人</font>也及早猛然清醒，悬崖勒马，<font size="5">向</font>人民交心交罪，从新做<font size="5">人</font>。否则<font size="5">当</font>你犯罪的念头一<font size="5">闪</font>，就会<font size="5">遭</font>到社<font size="5">会</font>舆论的<font size="5">谴</font>责；当你偷盗的<font size="5">魔</font>爪一<font size="5">伸</font>，就会被无产阶级专政的<font size="5">钢</font>刀所截然斩断。有<font size="5">偷</font>盗<font size="5">心</font>理的<font size="5">人</font>应该清楚：在强大的无产阶级专政下、在<font size="5">人</font>民尖锐而锋利的眼光的监督下，<font size="5">小</font>偷的日子不好过了，不管你的<font size="5">犯</font>罪手段多<font size="5">高</font>多妙，其结果总是弄巧成拙。被<font size="5">人</font>民揪于光天化日之下，落得个臭名远<font size="5">扬</font>而告终。</p>
+
+<p>　　<font size="5">同</font>学<font size="5">们</font>：让我<font size="5">们</font>通过ＸＸ的<font size="5">问</font>题从中吸取教训，<font size="5">在</font>今后漫长的工作生活中<font size="5">认</font>真学习无产阶级专政理论，在改造<font size="5">客</font>观世<font size="5">界</font>的<font size="5">同</font>时，改造<font size="5">自</font>己的主观世<font size="5">界</font>。<font size="5">为</font>实现无产阶级对资产阶级的全<font size="5">面</font>专政进行长期而不<font size="5">疲</font>倦的战斗，<font size="5">誓</font>做资产阶级法权的宣战者，旧传统观念的决裂<font size="5">人</font>，为巩<font size="5">固</font>无产阶级专政而奋斗。</p>
+
+<h5 align="center"><!--mstheme--><font color="#CC9933">在赤峰师范学校代表音乐班在批判ＸＸ大会上的发言<!--mstheme--></font></h5>
+
+<h5 align="right"><!--mstheme--><font color="#CC9933">──75.9.14，下午<!--mstheme--></font></h5>
+</font>
+<!--msnavigation--></td></tr><!--msnavigation--></table></body>
+</html>
